@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pending Requests</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      padding: 20px;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    th {
+      background: #007bff;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+    button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button.accept {
+      background: #28a745;
+      color: white;
+    }
+    button.reject {
+      background: #dc3545;
+      color: white;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Pending Student Requests</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Student Name</th>
+          <th>Roll No</th>
+          <th>Department</th>
+          <th>Year</th>
+          <th>Course</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="pendingTableBody">
+        <!-- Data will be inserted here -->
+      </tbody>
+    </table>
+    <a href="admin-welcome.html" class="back-link">⬅ Back</a>
+  </div>
+
+  <script>
+  async function loadPendingRequests() {
+    try {
+      const response = await fetch("http://localhost:8080/api/students/pending");
+      if (!response.ok) {
+        throw new Error("Failed to fetch pending requests: " + response.status);
+      }
+      const students = await response.json();
+
+      const tableBody = document.getElementById("pendingTableBody");
+      tableBody.innerHTML = "";
+
+      students.forEach(student => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${student.id}</td>
+          <td>${student.name}</td>
+          <td>${student.rollno}</td>
+          <td>${student.department}</td>
+          <td>${student.year}</td>
+          <td>${student.course}</td>
+          <td>${student.status}</td>
+          <td>
+            <button class="accept" onclick="updateStatus(${student.id}, 'APPROVED')">✅ Accept</button>
+            <button class="reject" onclick="updateStatus(${student.id}, 'REJECTED')">❌ Reject</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    } catch (error) {
+      console.error("Error loading pending requests:", error);
+      alert("Error loading pending requests.");
+    }
+  }
+  
+  async function updateStatus(id, newStatus) {
+    try {
+      // ✅ Use query param instead of body
+      const response = await fetch(`http://localhost:8080/api/students/${id}/status?status=${newStatus}`, {
+        method: "PUT"
+      });
+
+      if (!response.ok) throw new Error("Failed to update status");
+
+      alert(`Student ${id} marked as ${newStatus}`);
+      loadPendingRequests(); // reload pending list
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error updating status: " + error.message);
+    }
+  }
+
+  // Load data when page opens
+  window.onload = loadPendingRequests;
+</script>
+
+</body>
+</html>

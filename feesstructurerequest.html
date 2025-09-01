@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Request Fee Structure</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden; /* 🔹 No Scroll */
+    }
+
+    .container {
+      text-align: center;
+      color: white;
+      width: 100%;
+    }
+
+    .page-heading {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffe066;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    }
+
+    form {
+      background: rgba(0,0,0,0.75);
+      padding: 20px;
+      border-radius: 10px;
+      width: 420px;
+      color: white;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+      text-align: center;
+    }
+
+    form h2 {
+      margin-bottom: 12px;
+      font-size: 18px;
+      color: #f8f8f8;
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .form-group input, 
+    .form-group select, 
+    .form-group textarea {
+      width: 100%;
+      padding: 7px;
+      border-radius: 6px;
+      border: none;
+      font-size: 13px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(to right, #56ab2f, #a8e063);
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .btn-submit:hover {
+      background: linear-gradient(to right, #3b8d1e, #88c94a);
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 10px;
+      font-size: 12px;
+      color: #ddd;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <center>
+    <div class="container">
+      <!-- 🔹 Heading -->
+      <div class="page-heading">College Fee Structure Request</div>
+
+      <!-- ✅ Changed div to form -->
+      <form id="studentForm">
+        <h2>📄 Fill in your details</h2>
+
+        <div class="form-group">
+          <label for="name">Student Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="roll">Roll Number</label>
+          <input type="text" id="rollno" name="rollno" required>
+        </div>
+
+        <div class="form-group">
+          <label for="dept">Department</label>
+          <select id="department" name="department" required>
+            <option value="">-- Select --</option>
+            <option value="cse">CSE</option>
+            <option value="ece">ECE</option>
+            <option value="eee">EEE</option>
+            <option value="mech">MECH</option>
+            <option value="civil">CIVIL</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="year">Year of Study</label>
+          <select id="year" name="year" required>
+            <option value="">-- Select --</option>
+            <option value="1">1st Year</option>
+            <option value="2">2nd Year</option>
+            <option value="3">3rd Year</option>
+            <option value="4">4th Year</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="course">Course</label>
+          <input type="text" id="course" name="course" required>
+        </div>
+
+        <div class="form-group">
+          <label for="reason">Reason</label>
+          <textarea id="reason" name="reason" rows="2" required></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit Request</button>
+        <a href="student-dashborad.html" class="back-link">⬅ Back</a>
+      </form>
+    </div>
+  </center>
+
+  <script>
+document.getElementById("studentForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const data = {
+        name: document.getElementById("name").value,
+        rollno:(document.getElementById("rollno").value), // convert to number
+        department: document.getElementById("department").value,
+        year: document.getElementById("year").value,
+        course: document.getElementById("course").value,
+        reason: document.getElementById("reason").value
+    };
+
+    try {
+        const response = await fetch("http://localhost:8080/api/students/ins", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed: " + response.status);
+        }
+
+        const result = await response.json();
+        alert("Student inserted successfully! ID = " + result.id);
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Error saving student: " + error.message);
+    }
+});
+</script>
+
+</body>
+</html>

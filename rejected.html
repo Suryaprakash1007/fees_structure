@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Approved Students</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      padding: 20px;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+    th {
+      background: #28a745;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Approved Students</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Roll No</th>
+          <th>Department</th>
+          <th>Year</th>
+          <th>Course</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="approvedTableBody">
+        <!-- Approved students will be inserted here -->
+      </tbody>
+    </table>
+    <a href="admin-welcome.html" class="back-link">⬅ Back</a>
+  </div>
+
+  <script>
+    async function loadApprovedStudents() {
+      try {
+        const response = await fetch("http://localhost:8080/api/students/rejected?status=REJECTED");
+        if (!response.ok) throw new Error("Failed to fetch approved students: " + response.status);
+        const students = await response.json();
+
+        const tableBody = document.getElementById("approvedTableBody");
+        tableBody.innerHTML = "";
+
+        students.forEach(student => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${student.id}</td>
+            <td>${student.name}</td>
+            <td>${student.rollno}</td>
+            <td>${student.department}</td>
+            <td>${student.year}</td>
+            <td>${student.course}</td>
+            <td>${student.status}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      } catch (error) {
+        console.error("Error loading approved students:", error);
+        alert("Error loading approved students.");
+      }
+    }
+
+    window.onload = loadApprovedStudents;
+  </script>
+</body>
+</html>

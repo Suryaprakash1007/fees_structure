@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Profile</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 🔹 Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 15px 30px;
+    }
+    .navbar h2 {
+      margin: 0;
+      font-size: 22px;
+      color: white;
+      font-weight: bold;
+    }
+    .logout-btn {
+      background: linear-gradient(to right, #ff416c, #ff4b2b);
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .logout-btn:hover {
+      background: linear-gradient(to right, #e03e56, #ff2b2b);
+    }
+
+    /* 🔹 Profile Content */
+    .content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+    .profile-card {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .profile-card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 4px solid #ff4b2b;
+    }
+    .profile-card h3 {
+      margin: 10px 0;
+      font-size: 22px;
+      color: #333;
+    }
+    .profile-card p {
+      margin: 6px 0;
+      font-size: 16px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <!-- 🔹 Navbar -->
+  <div class="navbar">
+    <h2>Student Profile</h2>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+
+  <!-- 🔹 Profile Info -->
+  <div class="content">
+    <div class="profile-card">
+      <img src="https://via.placeholder.com/120" alt="Student Photo">
+      <h3>John Doe</h3>
+      <p><strong>Register No:</strong> 21CSE123</p>
+      <p><strong>Course:</strong> B.Tech</p>
+      <p><strong>Department:</strong> CSE</p>
+      <p><strong>Email:</strong> johndoe@gmail.com</p>
+      <p><strong>Phone:</strong> +91 98765 43210</p>
+    </div>
+  </div>
+
+  <script>
+    function logout(){
+      alert("Logged out successfully!");
+      window.location.href = "index.html"; // back to home
+    }
+  </script>
+</body>
+</html>

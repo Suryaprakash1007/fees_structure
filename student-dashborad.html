@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      background: url('https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg') no-repeat center center/cover;
+      /* 🔹 Sharp Background Image - College Campus */
+      color: white;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 🔹 Topbar */
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      background: rgba(0,0,0,0.6);
+      padding: 15px 30px;
+    }
+    .profile {
+      position: relative;
+      margin-left: 20px;
+      cursor: pointer;
+    }
+    .profile img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 55px;
+      right: 0;
+      background: rgba(0,0,0,0.85);
+      border-radius: 8px;
+      overflow: hidden;
+      min-width: 160px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+    .dropdown a {
+      display: block;
+      padding: 12px 20px;
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+    .dropdown a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .dropdown.show {
+      display: block;
+    }
+
+    /* 🔹 Hero Section */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+    }
+    .hero-content {
+      background: rgba(0,0,0,0.55); /* only text background, not whole image */
+      padding: 30px 40px;
+      border-radius: 12px;
+    }
+    .hero h1 {
+      font-size: 44px;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+    }
+    .hero p {
+      font-size: 18px;
+      max-width: 600px;
+      line-height: 1.5;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+    }
+
+    /* 🔹 Buttons */
+    .actions {
+      margin-top: 30px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      color: white;
+    }
+    .btn-request {
+      background: linear-gradient(to right, #56ab2f, #a8e063);
+    }
+    .btn-request:hover {
+      background: linear-gradient(to right, #3b8d1e, #88c94a);
+    }
+    .btn-profile {
+      background: linear-gradient(to right, #ff416c, #ff4b2b);
+    }
+    .btn-profile:hover {
+      background: linear-gradient(to right, #e03e56, #ff2b2b);
+    }
+    #studentLogoutBtn {
+  background-color: #0e0d0d;   /* red shade */
+  color: white;
+  padding: 10px 20px;
+  padding-left: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#studentLogoutBtn:hover {
+  background-color: #111010;   /* darker red on hover */
+  transform: scale(1.05);      /* slight zoom effect */
+}
+
+#studentLogoutBtn:active {
+  background-color: #080606;   /* deep red when clicked */
+  transform: scale(0.95);      /* press effect */
+}
+
+  </style>
+</head>
+<body>
+  <!-- 🔹 Topbar -->
+  <div class="topbar">
+    <div class="profile" onclick="toggleDropdown()">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile">
+      <div class="dropdown" id="dropdownMenu">
+        <a href="viewprofile.html">👤 View Profile</a>
+        <button id="studentLogoutBtn">👤 Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔹 Hero Section -->
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Welcome, Student</h1>
+      <p>You can request your fee structure and view your profile from here.</p>
+      
+      <div class="actions">
+        <button class="btn btn-request" onclick="window.location.href='feesstructurerequest.html'">📄 Request Fee Structure</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Dropdown toggle
+    function toggleDropdown() {
+      document.getElementById("dropdownMenu").classList.toggle("show");
+    }
+
+    // Outside click close
+    window.onclick = function(event) {
+      if (!event.target.matches('.profile img')) {
+        let dropdowns = document.getElementsByClassName("dropdown");
+        for (let i = 0; i < dropdowns.length; i++) {
+          let openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+    document.getElementById("studentLogoutBtn").addEventListener("click", () => {
+    // Redirect student to login with status flag
+      localStorage.clear();
+
+    window.location.href = "student-login.html?status=loggedout";
+  });
+  </script>
+</body>
+</html>

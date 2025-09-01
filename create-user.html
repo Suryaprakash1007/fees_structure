@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create User</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    .box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      width: 400px;
+      margin: auto;
+      text-align: center;
+    }
+    input {
+      padding: 10px; width: 90%; margin: 10px 0;
+      border: 1px solid #ccc; border-radius: 6px;
+    }
+    button {
+      padding: 12px; width: 100%;
+      background: #007bff; color: white;
+      border: none; border-radius: 8px;
+      cursor: pointer; font-size: 16px;
+    }
+    button:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+  <form id="login">
+  <div class="box">
+    <h2>Create Student User</h2>
+    <input type="text" id="username" placeholder="Reg No">
+    <input type="text" id="password" placeholder="password">
+    <input type="text"id="name" placeholder="name">
+
+
+    <input type="text"id="department"placeholder="department">
+    <input type="text"id="year" placeholder="year">
+    <input type="text"id="course" placeholder="course">
+    <input type="text"id="email" placeholder="email">
+    <input type="text" id="role" placeholder="role">
+  
+    <button type="submit">Create</button>
+  
+  <a href="admin-welcome.html" class="back-link">⬅ Back</a>
+  </div>
+  </form>
+  <script>
+    document.getElementById("login").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const data = {
+
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value, // convert to number
+
+        name: document.getElementById("name").value,
+        department: document.getElementById("department").value,
+        year: document.getElementById("year").value,
+        course: document.getElementById("course").value,
+        email: document.getElementById("email").value,
+        role: document.getElementById("role").value,
+
+        
+    };
+
+    try {
+        const response = await fetch("http://localhost:8080/api/ins", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed: " + response.status);
+        }
+
+        const result = await response.json();
+        alert("Student inserted successfully! ID = " + result.id);
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Error saving student: " + error.message);
+    }
+});
+  </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>College Portal</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      background: url("https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg") no-repeat center center/cover;
+      color: white;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 🔹 Overlay for dark effect */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.55);
+      z-index: -1;
+    }
+
+    /* 🔹 Top Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(0,0,0,0.3);
+    }
+    .navbar h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    /* 🔹 Login Dropdown */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropbtn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      color: white;
+      background: linear-gradient(to right, #d3cccc, #7a6865);
+    }
+    .dropbtn:hover {
+      background: linear-gradient(to right, #e03e56, #ff2b2b);
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 45px;
+      background-color: white;
+      min-width: 180px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+      z-index: 1;
+      overflow: hidden;
+    }
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-weight: bold;
+    }
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+    .dropdown:focus-within .dropdown-content {
+      display: block;
+    }
+
+    /* 🔹 Hero Section */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+    }
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    }
+    .hero p {
+      font-size: 18px;
+      max-width: 650px;
+      line-height: 1.5;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    }
+
+  </style>
+</head>
+<body>
+  <!-- 🔹 Navbar -->
+  <div class="navbar">
+    <h2>College Portal</h2>
+    <div class="dropdown">
+      <button class="dropbtn">Login</button>
+      
+      <div class="dropdown-content">
+        <a href="student-login.html">Student Login</a>
+        <a href="admin-login.html">Admin Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔹 Hero Content -->
+  <div class="hero">
+    <h1>Welcome to PSNA College Of Engineering And Technology</h1>
+    <p>
+      This portal allows students to request their bonafide and fee structure easily,
+      while admins can manage approvals efficiently.  
+      Get started by selecting your login option above.
+    </p>
+  </div>
+  
+</body>
+</html>
