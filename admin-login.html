@@ -8,10 +8,10 @@
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       height: 100vh;
-      background: linear-gradient(to right, #667eea, #764ba2);
+      background: url("https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg") no-repeat center center/cover;
+      color: white;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
     }
     .login-box {
       background: white;
@@ -67,6 +67,10 @@
   justify-content: center;
   align-items: center;
 }
+center{
+  margin-top: 100px;
+  opacity: 0.8;
+}
 
 .popup-content {
   background: white;
@@ -81,6 +85,7 @@
   </style>
 </head>
 <body>
+  <center>
   <div id="popup" class="popup">
     <div class="popup-content">
       <p>You have been logged out successfully ✅</p>
@@ -95,7 +100,7 @@
     </form>
     <a href="index.html" class="back-link">⬅ Back to Home</a>
   </div>
-
+</center>
   <script>
     document.getElementById('form').addEventListener('submit', async function(event) {
             event.preventDefault(); // Prevent the form from submitting normally

@@ -19,7 +19,7 @@
       text-align: center;
     }
     input {
-      padding: 10px; width: 90%; margin: 10px 0;
+      padding: 10px; width: 95%; margin: 10px 0;
       border: 1px solid #ccc; border-radius: 6px;
     }
     button {
@@ -29,6 +29,10 @@
       cursor: pointer; font-size: 16px;
     }
     button:hover { background: #0056b3; }
+    select{
+      padding: 10px; width: 100%; margin: 10px 0;
+      border: 1px solid #ccc; border-radius: 6px;
+    }
   </style>
 </head>
 <body>
@@ -38,11 +42,30 @@
     <input type="text" id="username" placeholder="Reg No">
     <input type="text" id="password" placeholder="password">
     <input type="text"id="name" placeholder="name">
-
-
-    <input type="text"id="department"placeholder="department">
-    <input type="text"id="year" placeholder="year">
-    <input type="text"id="course" placeholder="course">
+    <select id="department">
+      <option>---select---</option>
+      <option>CSE</option>
+      <option>IT</option>
+      <option>MECH</option>
+      <option>ECE</option>
+      <option>AIDS</option>
+      <option>CSBS</option>
+      <option>CIVIL</option>
+      <option>BME</option>
+      <option>EEE</option>
+    </select>
+    <select id="year">
+      <option>---select---</option>
+      <option>1 year</option>
+      <option>2 year</option>
+      <option>3 year</option>
+      <option>4 year</option>  
+    </select>
+    <select id="course">
+      <option>---select---</option>
+      <option>BE</option>
+      <option>BTech</option> 
+    </select>
     <input type="text"id="email" placeholder="email">
     <input type="text" id="role" placeholder="role">
   
